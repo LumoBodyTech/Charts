@@ -280,7 +280,8 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 }
                 
                 context.setFillColor(dataSet.barShadowColor.cgColor)
-                context.fill(barRect)
+                UIBezierPath(roundedRect: barRect, byRoundingCorners: [.topLeft, .topRight] , cornerRadii: CGSize(width: barRect.size.width / 2.0, height: barRect.size.width / 2.0)).fill()
+
             }
         }
         
@@ -311,7 +312,8 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 context.setFillColor(dataSet.color(atIndex: j).cgColor)
             }
             
-            context.fill(barRect)
+            UIBezierPath(roundedRect: barRect, byRoundingCorners: [.topLeft, .topRight] , cornerRadii: CGSize(width: barRect.size.width / 2.0, height: barRect.size.width / 2.0)).fill()
+
             
             if drawBorder
             {
@@ -617,7 +619,8 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 
                 setHighlightDrawPos(highlight: high, barRect: barRect)
                 
-                context.fill(barRect)
+                UIBezierPath(roundedRect: barRect, byRoundingCorners: [.topLeft, .topRight] , cornerRadii: CGSize(width: barRect.size.width / 2.0, height: barRect.size.width / 2.0)).fill()
+
             }
         }
         
