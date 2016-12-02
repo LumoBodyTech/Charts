@@ -1,3 +1,5 @@
+**Version 3.0.1.1** - Gave bar chart bars round tops
+
 BWD: To get this to make the frameworks in a way that would build for both simulator and device I created a new target "Charts_Fat". This target has a run script that merges the simulator and device frameworks and dumps it at ~/Desktop/Charts.framework. That framework then must be manually copied into LumoLift-iOS/LumoLift/Vendor/Charts
 
     
