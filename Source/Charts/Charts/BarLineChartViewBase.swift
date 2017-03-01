@@ -698,6 +698,18 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             {
                 // We will only handle highlights on NSUIGestureRecognizerState.Changed
                 
+                let h = getHighlightByTouchPoint(recognizer.location(in: self))
+                
+                let lastHighlighted = self.lastHighlighted
+                
+                if ((h === nil && lastHighlighted !== nil) ||
+                    (h !== nil && lastHighlighted === nil) ||
+                    (h !== nil && lastHighlighted !== nil && !h!.isEqual(lastHighlighted)))
+                {
+                    self.lastHighlighted = h
+                    self.highlightValue(h, callDelegate: true)
+                }
+                
                 _isDragging = false
             }
         }
@@ -714,17 +726,17 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             }
             else if isHighlightPerDragEnabled
             {
-                let h = getHighlightByTouchPoint(recognizer.location(in: self))
-                
-                let lastHighlighted = self.lastHighlighted
-                
-                if ((h === nil && lastHighlighted !== nil) ||
-                    (h !== nil && lastHighlighted === nil) ||
-                    (h !== nil && lastHighlighted !== nil && !h!.isEqual(lastHighlighted)))
-                {
-                    self.lastHighlighted = h
-                    self.highlightValue(h, callDelegate: true)
-                }
+//                let h = getHighlightByTouchPoint(recognizer.location(in: self))
+//                
+//                let lastHighlighted = self.lastHighlighted
+//                
+//                if ((h === nil && lastHighlighted !== nil) ||
+//                    (h !== nil && lastHighlighted === nil) ||
+//                    (h !== nil && lastHighlighted !== nil && !h!.isEqual(lastHighlighted)))
+//                {
+//                    self.lastHighlighted = h
+//                    self.highlightValue(h, callDelegate: true)
+//                }
             }
         }
         else if recognizer.state == NSUIGestureRecognizerState.ended || recognizer.state == NSUIGestureRecognizerState.cancelled
