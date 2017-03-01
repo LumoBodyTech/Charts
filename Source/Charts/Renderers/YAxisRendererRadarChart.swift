@@ -177,13 +177,17 @@ open class YAxisRendererRadarChart: YAxisRenderer
         let center = chart.centerOffsets
         let factor = chart.factor
         
+        let labelCount = yAxis.entryCount
+        
         let labelLineHeight = yAxis.labelFont.lineHeight
         
-        let from = yAxis.isDrawBottomYLabelEntryEnabled ? 0 : 1
-        let to = yAxis.isDrawTopYLabelEntryEnabled ? yAxis.entryCount : (yAxis.entryCount - 1)
-        
-        for j in stride(from: from, to: to, by: 1)
+        for j in 0 ..< labelCount
         {
+            if j == labelCount - 1 && yAxis.isDrawTopYLabelEntryEnabled == false
+            {
+                break
+            }
+            
             let r = CGFloat(yAxis.entries[j] - yAxis._axisMinimum) * factor
             
             let p = ChartUtils.getPosition(center: center, dist: r, angle: chart.rotationAngle)

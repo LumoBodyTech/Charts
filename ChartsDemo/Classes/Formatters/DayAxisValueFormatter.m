@@ -84,18 +84,14 @@
     
     if (month == 1)
     {
-        BOOL is29Feb = NO;
-        
-        if (year < 1582)
+        int x400 = month % 400;
+        if (x400 < 0)
         {
-            is29Feb = (year < 1 ? year + 1 : year) % 4 == 0;
+            x400 = -x400;
         }
-        else if (year > 1582)
-        {
-            is29Feb = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
-        }
+        BOOL is29 = (month % 4) == 0 && x400 != 100 && x400 != 200 && x400 != 300;
         
-        return is29Feb ? 29 : 28;
+        return is29 ? 29 : 28;
     }
     
     if (month == 3 || month == 5 || month == 8 || month == 10)

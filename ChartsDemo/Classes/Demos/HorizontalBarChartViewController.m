@@ -32,7 +32,6 @@
     
     self.options = @[
                      @{@"key": @"toggleValues", @"label": @"Toggle Values"},
-                     @{@"key": @"toggleIcons", @"label": @"Toggle Icons"},
                      @{@"key": @"toggleHighlight", @"label": @"Toggle Highlight"},
                      @{@"key": @"animateX", @"label": @"Animate X"},
                      @{@"key": @"animateY", @"label": @"Animate Y"},
@@ -120,7 +119,7 @@
     {
         double mult = (range + 1);
         double val = (double) (arc4random_uniform(mult));
-        [yVals addObject:[[BarChartDataEntry alloc] initWithX:i * spaceForBar y:val icon: [UIImage imageNamed:@"icon"]]];
+        [yVals addObject:[[BarChartDataEntry alloc] initWithX:i * spaceForBar y:val]];
     }
     
     BarChartDataSet *set1 = nil;
@@ -134,8 +133,6 @@
     else
     {
         set1 = [[BarChartDataSet alloc] initWithValues:yVals label:@"DataSet"];
-        
-        set1.drawIconsEnabled = NO;
         
         NSMutableArray *dataSets = [[NSMutableArray alloc] init];
         [dataSets addObject:set1];

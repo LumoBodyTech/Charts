@@ -33,7 +33,6 @@
     
     self.options = @[
                      @{@"key": @"toggleValues", @"label": @"Toggle Values"},
-                     @{@"key": @"toggleIcons", @"label": @"Toggle Icons"},
                      @{@"key": @"toggleHighlight", @"label": @"Toggle Highlight"},
                      @{@"key": @"animateX", @"label": @"Animate X"},
                      @{@"key": @"animateY", @"label": @"Animate Y"},
@@ -137,11 +136,7 @@
     {
         double mult = (range + 1);
         double val = (double) (arc4random_uniform(mult));
-        if (arc4random_uniform(100) < 25) {
-            [yVals addObject:[[BarChartDataEntry alloc] initWithX:val y:i icon: [UIImage imageNamed:@"icon"]]];
-        } else {
-            [yVals addObject:[[BarChartDataEntry alloc] initWithX:val y:i]];
-        }
+        [yVals addObject:[[BarChartDataEntry alloc] initWithX:(double)i y:val]];
     }
     
     BarChartDataSet *set1 = nil;
@@ -156,7 +151,6 @@
     {
         set1 = [[BarChartDataSet alloc] initWithValues:yVals label:@"The year 2017"];
         [set1 setColors:ChartColorTemplates.material];
-        set1.drawIconsEnabled = NO;
         
         NSMutableArray *dataSets = [[NSMutableArray alloc] init];
         [dataSets addObject:set1];

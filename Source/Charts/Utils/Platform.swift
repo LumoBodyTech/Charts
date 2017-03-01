@@ -445,7 +445,7 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
 			super.touchesCancelled(with: event!)
         }
         
-		open var backgroundColor: NSUIColor?
+		var backgroundColor: NSUIColor?
         {
             get
             {
@@ -455,7 +455,6 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
             }
             set
             {
-                self.wantsLayer = true
                 self.layer?.backgroundColor = newValue == nil ? nil : newValue!.cgColor
             }
         }

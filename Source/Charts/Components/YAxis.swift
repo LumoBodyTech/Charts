@@ -38,9 +38,6 @@ open class YAxis: AxisBase
         case right
     }
     
-    /// indicates if the bottom y-label entry is drawn or not
-    open var drawBottomYLabelEntryEnabled = true
-    
     /// indicates if the top y-label entry is drawn or not
     open var drawTopYLabelEntryEnabled = true
     
@@ -171,8 +168,6 @@ open class YAxis: AxisBase
         // calc actual range
         axisRange = abs(_axisMaximum - _axisMinimum)
     }
-    
-    open var isDrawBottomYLabelEntryEnabled: Bool { return drawBottomYLabelEntryEnabled }
     
     open var isDrawTopYLabelEntryEnabled: Bool { return drawTopYLabelEntryEnabled }
 

@@ -32,7 +32,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app requires access to the photo library to store shots of charts there.</string>
 </dict>
 </plist>

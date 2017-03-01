@@ -173,8 +173,6 @@ open class BubbleChartRenderer: BarLineScatterCandleBubbleRenderer
                 let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
                 let valueToPixelMatrix = trans.valueToPixelMatrix
                 
-                let iconsOffset = dataSet.iconsOffset
-                
                 for j in stride(from: _xBounds.min, through: _xBounds.range + _xBounds.min, by: 1)
                 {
                     guard let e = dataSet.entryForIndex(j) as? BubbleChartDataEntry else { break }
@@ -205,27 +203,14 @@ open class BubbleChartRenderer: BarLineScatterCandleBubbleRenderer
                     let valueFont = dataSet.valueFont
                     let lineHeight = valueFont.lineHeight
 
-                    if dataSet.isDrawValuesEnabled
-                    {
-                        ChartUtils.drawText(
-                            context: context,
-                            text: text,
-                            point: CGPoint(
-                                x: pt.x,
-                                y: pt.y - (0.5 * lineHeight)),
-                            align: .center,
-                            attributes: [NSFontAttributeName: valueFont, NSForegroundColorAttributeName: valueTextColor])
-                    }
-                    
-                    if let icon = e.icon, dataSet.isDrawIconsEnabled
-                    {
-                         ChartUtils.drawImage(context: context,
-                                              image: icon,
-                                              x: pt.x + iconsOffset.x,
-                                              y: pt.y + iconsOffset.y,
-                                              size: icon.size)
-                    }
-                    
+                    ChartUtils.drawText(
+                        context: context,
+                        text: text,
+                        point: CGPoint(
+                            x: pt.x,
+                            y: pt.y - (0.5 * lineHeight)),
+                        align: .center,
+                        attributes: [NSFontAttributeName: valueFont, NSForegroundColorAttributeName: valueTextColor])
                 }
             }
         }

@@ -307,12 +307,10 @@ open class PieChartRenderer: DataRenderer
             
             let drawValues = dataSet.isDrawValuesEnabled
             
-            if !drawValues && !drawEntryLabels && !dataSet.isDrawIconsEnabled
+            if !drawValues && !drawEntryLabels
             {
                 continue
             }
-            
-            let iconsOffset = dataSet.iconsOffset
             
             let xValuePosition = dataSet.xValuePosition
             let yValuePosition = dataSet.yValuePosition
@@ -530,21 +528,6 @@ open class PieChartRenderer: DataRenderer
                     }
                 }
                 
-                if let icon = e.icon, dataSet.isDrawIconsEnabled
-                {
-                    // calculate the icon's position
-                    
-                    let x = (labelRadius + iconsOffset.y) * sliceXBase + center.x
-                    var y = (labelRadius + iconsOffset.y) * sliceYBase + center.y
-                    y += iconsOffset.x
-                    
-                    ChartUtils.drawImage(context: context,
-                                         image: icon,
-                                         x: x,
-                                         y: y,
-                                         size: icon.size)
-                }
-
                 xIndex += 1
             }
         }

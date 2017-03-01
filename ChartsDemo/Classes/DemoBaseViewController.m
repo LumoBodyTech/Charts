@@ -83,16 +83,6 @@
         [chartView setNeedsDisplay];
     }
     
-    if ([key isEqualToString:@"toggleIcons"])
-    {
-        for (id<IChartDataSet> set in chartView.data.dataSets)
-        {
-            set.drawIconsEnabled = !set.isDrawIconsEnabled;
-        }
-        
-        [chartView setNeedsDisplay];
-    }
-    
     if ([key isEqualToString:@"toggleHighlight"])
     {
         chartView.data.highlightEnabled = !chartView.data.isHighlightEnabled;
