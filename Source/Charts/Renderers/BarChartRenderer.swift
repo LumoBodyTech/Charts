@@ -584,7 +584,6 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                     continue
                 }
                 
-                print("highlight: \(high) data set: \(set)")
                 let trans = dataProvider.getTransformer(forAxis: set.axisDependency)
                 
                 let colors = barData.getColors()
