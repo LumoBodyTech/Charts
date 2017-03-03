@@ -513,8 +513,11 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         
         if recognizer.state == NSUIGestureRecognizerState.ended
         {
+            print("NSUIGestureRecognizerState.ended")
+            self.lastHighlighted = nil
+        } else if recognizer.state == NSUIGestureRecognizerState.began {
             if !self.isHighLightPerTapEnabled { return }
-            
+            print("NSUIGestureRecognizerState.began")
             let h = getHighlightByTouchPoint(recognizer.location(in: self))
             
             if h === nil || h!.isEqual(self.lastHighlighted)
@@ -526,6 +529,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             {
                 self.highlightValue(h, callDelegate: true)
                 self.lastHighlighted = h
+                print("updating hilighted point")
             }
         }
     }
@@ -741,7 +745,8 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                     _decelerationDisplayLink = NSUIDisplayLink(target: self, selector: #selector(BarLineChartViewBase.decelerationLoop))
                     _decelerationDisplayLink.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
                 }
-                
+                self.lastHighlighted = nil
+            print("pan ended, self.lastHighlighted = nil ")
                 _isDragging = false
             }
             
