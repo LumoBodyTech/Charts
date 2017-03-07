@@ -572,6 +572,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
         
         for high in indices
         {
+            print("hilight entry: \(high)")
             guard
                 let set = barData.getDataSetByIndex(high.dataSetIndex) as? IBarChartDataSet,
                 set.isHighlightEnabled
