@@ -588,6 +588,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 let trans = dataProvider.getTransformer(forAxis: set.axisDependency)
                 
                 let colors = barData.getColors()
+                print("colors: \(colors)")
                 context.setFillColor((colors?[abs(high.stackIndex)].cgColor)!)
                 
                 context.setAlpha(1)

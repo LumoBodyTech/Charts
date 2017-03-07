@@ -113,8 +113,10 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         self.highlighter = ChartHighlighter(chart: self)
         
         _tapGestureRecognizer = NSUITapGestureRecognizer(target: self, action: #selector(tapGestureRecognized(_:)))
+        _tapGestureRecognizer.nsuiNumberOfTapsRequired = 1
+        
         _doubleTapGestureRecognizer = NSUITapGestureRecognizer(target: self, action: #selector(doubleTapGestureRecognized(_:)))
-        _doubleTapGestureRecognizer.nsuiNumberOfTapsRequired = 1
+        _doubleTapGestureRecognizer.nsuiNumberOfTapsRequired = 2
         _panGestureRecognizer = NSUIPanGestureRecognizer(target: self, action: #selector(panGestureRecognized(_:)))
         
         _panGestureRecognizer.delegate = self
@@ -506,7 +508,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     
     @objc fileprivate func tapGestureRecognized(_ recognizer: NSUITapGestureRecognizer)
     {
-        print("NSUITapGestureRecognizer state: \(recognizer.state)")
+        //print("NSUITapGestureRecognizer state: \(recognizer.state)")
         if _data === nil
         {
             return
@@ -514,10 +516,11 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         
         if recognizer.state == NSUIGestureRecognizerState.ended
         {
-            print("NSUITapGestureRecognizer.ended")
+            //print("NSUITapGestureRecognizer.ended")
             self.lastHighlighted = nil
+            self.highlightValue(self.lastHighlighted, callDelegate: true)
         } else if recognizer.state == NSUIGestureRecognizerState.began {
-            print("NSUIGestureRecognizerState.began")
+            //print("NSUIGestureRecognizerState.began")
             if !self.isHighLightPerTapEnabled { return }
             
             let h = getHighlightByTouchPoint(recognizer.location(in: self))
@@ -531,9 +534,37 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             {
                 self.highlightValue(h, callDelegate: true)
                 self.lastHighlighted = h
-                print("updating hilighted point")
+                //print("updating hilighted point")
             }
         }
+    }
+    
+    open override func nsuiTouchesBegan(_ touches: Set<NSUITouch>, withEvent event: NSUIEvent?)
+    {
+        //print("nsuiTouchesBegan nsuiTouchesBegan")
+        
+        if let location = touches.first?.location(in:self) {
+            let h = getHighlightByTouchPoint(location)
+            
+            if h === nil || h!.isEqual(self.lastHighlighted)
+            {
+                self.highlightValue(nil, callDelegate: true)
+                self.lastHighlighted = nil
+            }
+            else
+            {
+                self.highlightValue(h, callDelegate: true)
+                self.lastHighlighted = h
+                //print("updating hilighted point")
+            }
+        }
+    
+        super.nsuiTouchesBegan(touches, withEvent: event)
+    }
+    
+    open override func nsuiTouchesEnded(_ touches: Set<NSUITouch>, withEvent event: NSUIEvent?)
+    {
+            super.nsuiTouchesEnded(touches, withEvent: event)
     }
     
     @objc fileprivate func doubleTapGestureRecognized(_ recognizer: NSUITapGestureRecognizer)
@@ -658,7 +689,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     @objc fileprivate func panGestureRecognized(_ recognizer: NSUIPanGestureRecognizer)
     {
         
-        print("NSUIPanGestureRecognizer state: \(recognizer.state)")
+        //print("NSUIPanGestureRecognizer state: \(recognizer.state)")
         if recognizer.state == NSUIGestureRecognizerState.began && recognizer.nsuiNumberOfTouches() > 0
         {
             stopDeceleration()
@@ -739,7 +770,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         {
             self.lastHighlighted = nil
             self.highlightValue(self.lastHighlighted, callDelegate: true)
-            print("pan ended, self.lastHighlighted = nil ")
+            //print("pan ended, self.lastHighlighted = nil ")
             
             if _isDragging
             {
@@ -754,7 +785,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                     _decelerationDisplayLink.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
                 }
                 self.lastHighlighted = nil
-            print("pan ended again, self.lastHighlighted = nil ")
+            //print("pan ended again, self.lastHighlighted = nil ")
                 _isDragging = false
             }
             
