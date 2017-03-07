@@ -572,7 +572,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
         
         for high in indices
         {
-            print("hilight entry: \(high)")
+            //print("hilight entry: \(high)")
             guard
                 let set = barData.getDataSetByIndex(high.dataSetIndex) as? IBarChartDataSet,
                 set.isHighlightEnabled
@@ -588,7 +588,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 let trans = dataProvider.getTransformer(forAxis: set.axisDependency)
                 
                 let colors = barData.getColors()
-                print("colors: \(colors)")
+                //print("colors: \(colors)")
                 context.setFillColor((colors?[abs(high.stackIndex)].cgColor)!)
                 
                 context.setAlpha(1)
